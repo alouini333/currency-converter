@@ -41,7 +41,7 @@
 					</select>
 					<div class="amount-field">
 						<span>Amount</span>
-						<input type="text" name="value_to" value=<%=exchange_rates.usd_value%> readonly="readonly" >
+						<input type="text" name="value_to" value=<%=exchange_rates.usd_value.round(3)%> readonly="readonly" >
 					</div>
 				</div>
 				
@@ -89,7 +89,8 @@
 			}
 
 			function checkNumber(event) {
-				if (isNaN(event.key)) {
+				const amount = document.getElementsByName("value_from")[0].value.toString();
+				if (isNaN(Number(amount+event.key)) ) {
 					event.preventDefault();
 				}
 			}
