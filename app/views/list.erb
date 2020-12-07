@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>List of conversions</title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+	</head>
+	<body>
+        <header>
+            <ul class="nav-header">
+                <li class="nav-item"><a href="/">Home</a></li>
+                <li class="nav-item"><a href="/conversions">List conversions</a></li>
+            </ul>
+        </header>
+        <table id="results" class="results-table">
+            <thead>
+                <tr class="results-table-header">
+                    <td>FROM</td>
+                    <td>VALUE</td>
+                    <td>TO</td>
+                    <td>VALUE</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% list.each do |conversion|%>
+                    <tr>
+                        <td class="flag-column">  <img src=<%="/images/"+conversion.curr_from+"-32.png"%> class="flag"> <span><%=conversion.curr_from%></span> </td>
+                        <td> <%=conversion.value_from %> </td> 
+                        <td class="flag-column"> <img src=<%="/images/"+conversion.curr_to+"-32.png"%> class="flag">  <span><%=conversion.curr_to%></span> </td>
+                        <td> <%=conversion.value_to %> </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <script>
+            var $ = jQuery;
+            $(document).ready( function () {
+                $('#results').DataTable({
+                    searching: false,
+                    pagingType: "numbers",
+                    ordering: false,
+                });
+            } );
+        </script>
+	</body>
+</html>

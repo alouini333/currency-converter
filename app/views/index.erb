@@ -1,8 +1,98 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Currency converter</title>
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
 	</head>
 	<body>
-		<h1>Hello world!</h1>
+		<header>
+            <ul class="nav-header">
+                <li class="nav-item"><a href="/">Home</a></li>
+                <li class="nav-item"><a href="/conversions">List conversions</a></li>
+            </ul>
+        </header>
+		<div class="app">
+			<h1>Currency converter</h1>
+			<div class="results">
+				<% flash.keys.each do |type| %>
+				<div data-alert class="flash <%= type %> alert-box radius">
+					<%= flash[type] %>
+					<a href="#" class="close">&times;</a>
+				</div>
+				<% end %>
+			</div>
+			<form method="POST" action="/">
+				<div class="currency-from currency-selector">
+					<select name="curr_from" onchange="handleChange()">
+						<option value="EUR" selected class="flag flag-eu">EUR</option>
+						<option value="USD">USD</option>
+						<option value="CHF">CHF</option>
+					</select>
+					<div class="amount-field">
+						<span>Amount</span>
+						<input type="text" name="value_from" value="1" onkeypress="checkNumber(event)" onkeyup="handleChange()">
+					</div>
+				</div>
+				<div class="currency-to currency-selector">
+					<select name="curr_to" onchange="handleChange()">
+						<option value="EUR">EUR</option>
+						<option value="USD" selected>USD</option>
+						<option value="CHF">CHF</option>
+					</select>
+					<div class="amount-field">
+						<span>Amount</span>
+						<input type="text" name="value_to" value=<%=exchange_rates.usd_value%> readonly="readonly" >
+					</div>
+				</div>
+				
+				<button class="action-btn" type="submit">Save</button>
+			</form>
+		</div>
+		<script>
+			function handleChange() {
+				const eurUsd = <%=exchange_rates.usd_value%>;
+				const eurChf = <%=exchange_rates.chf_value%>;
+				const usdEur = 1/eurUsd;
+				const chfEur = 1/eurChf;
+				const fromCurrency = document.getElementsByName("curr_from")[0].value;
+				const toCurrency = document.getElementsByName("curr_to")[0].value;
+				const amount = document.getElementsByName("value_from")[0].value;
+				let result = 0;
+				if (fromCurrency === toCurrency) {
+					result = convert(amount, 1);
+				} else {
+					if (fromCurrency === 'EUR') {
+						if (toCurrency === "CHF") {
+							result = convert(amount, eurChf);
+						} else if (toCurrency === "USD") {
+							result = convert(amount, eurUsd);
+						}
+					} else if (fromCurrency === "USD") {
+						if (toCurrency === "EUR") {
+							result = convert(amount, usdEur);
+						} else if (toCurrency === "CHF") {
+							result = convert(amount, usdEur*eurChf);
+						}
+					} else if (fromCurrency === "CHF") {
+						if (toCurrency === "EUR") {
+							result = convert(amount, chfEur);
+						} else if (toCurrency === "USD") {
+							result = convert(amount, chfEur*eurUsd);
+						}
+					}
+				}
+				document.getElementsByName("value_to")[0].value = result;
+			}
+			
+			function convert(amount, rate) {
+				return parseFloat(amount*rate).toFixed(3);
+			}
+
+			function checkNumber(event) {
+				if (isNaN(event.key)) {
+					event.preventDefault();
+				}
+			}
+		</script>
 	</body>
 </html>

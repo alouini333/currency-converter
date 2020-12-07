@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    background-color: #002272;
+    background-image: linear-gradient(315deg, #002272 0%, #f894a4 74%);
+    margin-top: 120px;
+  }
+
+header {
+    position: absolute;
+    top: 0;
+    padding: 20px;
+    right: 0;
+    background-color: rgba(0,0,0,0.1);;
+    width: 100%;    
+}
+
+.nav-header {
+    list-style: none;
+    display: flex;
+    float: right;
+}
+
+.nav-item {
+    padding: 0 20px;
+    font-size: 18px;
+}
+
+.nav-item > a {
+    color: #fff;
+}
+
+.app {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 1px;
+    grid-row-gap: 0px;
+    grid-auto-rows: 1fr;
+    width: 90vw;
+    margin: auto;
+}
+    
+.results { 
+    grid-area: 1 / 1 / 3 / 2; 
+    text-align: center;
+    font-size: 3rem;
+}
+.currency-from { grid-area: 1 / 2 / 2 / 3; }
+.currency-to { grid-area: 2 / 2 / 3 / 3; }
+.currency-selector {
+    padding: 20px;
+    display: flex;
+    align-items: self-end;
+}
+.amount-field > input {
+    background: rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    border: 0px none;
+    border-radius: 0 10px 10px 0;
+    color: rgb(234, 238, 251);;
+    font-size: 3rem;
+    height: 60px;
+    padding-left: 20px;
+}
+.amount-field > span {
+    color: rgb(255, 255, 255);
+    display: block;
+    margin: 0px 10px 5px;
+    text-align: left;
+}
+
+.currency-selector > select {
+    box-sizing: border-box;
+    font-size: 3rem;
+    height: 60px;
+}
+
+
+.action-btn {
+    position: absolute;
+    margin: auto;
+    right: 0;
+    left: 0;
+    margin-top: 50px;
+    height: 60px;
+    width: 200px;
+    font-size: 2rem;
+    background-color: rgb(252, 184, 19);
+    color: #002272;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background-color: rgb(38, 132, 255);
+    color: #fff;
+}
+
+.results-table {
+    width: 50%;
+    border-radius: 2px;
+    background: rgba(0,0,0,0.1);
+    color: #fff;
+}
+
+.results-table tr {
+    height: 40px;
+}
+
+.flag-column {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.flag {
+    margin-right: 5px;
+}
+
+.close {
+    display: none;
+}
+
+table.dataTable tbody tr {
+    background-color: rgba(0,0,0,0.1) !important;
+}
+
+table.dataTable {
+    margin: 0 !important;
+}
+
+#results_length {
+    margin-bottom: 10px;
+}
