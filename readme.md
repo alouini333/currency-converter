@@ -1,37 +1,66 @@
-# 1. Setup
-## Ruby & Bundler
+
+# 1. RUNNING THE APPLICATION
+
+> **Make sure to set the `CURRENCY_LAYER_KEY` env variable before running the program**
+
+There are 2 ways to run the application:
+## 1. Ruby and Bundler
 To be able to do this challange make sure you have installed a recent version of ruby and bunlder.
 https://www.ruby-lang.org/en/
 https://bundler.io
-## Clone the project
-For this challenge, you re going to use this repo as a starter project, for that you need to clone it.
-`git clone https://github.com/2wunder/currency-data-junior.git`
-## Install dependencies 
+
+### Install dependencies 
 To install required dependencies you just need to run `bundle install`
-## Database server
-We assumed that you will be using *PostgreSQL* as a database server, that is why we included by default PostgreSQL datamapper adapter.
-In case you want to use another database server please check the [documentation of datamapper](https://rom-rb.org/learn/) and add the right adapter.
 
-Make sure to update database connection path in the file `config/environment.rb`.
+### Run the project
 
-# 2. Run the project
+Before running the application create a `.env` file:
+just execute `cp .env.example .env`
+
+Set your environment variables
+- `POSTGRES_URL`: The url of the postgres database server
+- `POSTGRES_PORT`: The port of the postgres database server
+- `POSTGRESS_DB`: The name of the database
+- `POSTGRES_USER`: The postgres user
+- `POSTGRES_PASSWORD`: The postgres password
+- `POSTGRES_DB_TEST`: The api key of currency layer
+- `CURRENCY_LAYER_KEY`: The api key of currency layer
+
+```
+POSTGRES_URL=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=postgress
+POSTGRES_USER=user
+POSTGRES_PASSWORD=password
+POSTGRES_DB_TEST=postgres_test
+
+CURRENCY_LAYER_KEY=API_KEY
+```
+
+
 To run this starter project, simply execute `rackup` in your console
-# 3. Challenge!
-## The Task
-You need to create a simple web application that converts currency rates from EUR to USD and from EUR to CHF (both ways) from currencylayer API. the app will be mainly composed from 2 views:
-1. A view with a form includes the **value to convert**, **from** and **to** currencies. Submitting the form will show the result of the conversion but also it will **save the value, from, to and the result in the database**.
-2. A view includes a table with all the history of currency conversions.
-## Constraints
--   Use  `money-currencylayer-bank`  gem ​
-- [https://currencylayer.com](https://currencylayer.com/) you'll have to sign up for a free account to get the API key
-## Hints
- - http://sinatrarb.com/intro.html
- - https://rom-rb.org/learn/
-## Plus
-Writing tests is always appreciated, that's why we included [*Rspec*](https://rspec.info) and [*RackTest*](https://github.com/rack-test/rack-test) in the project, all necessary configuration is already done. You can check the  [*Rspec*](https://rspec.info) and [*RackTest*](https://github.com/rack-test/rack-test) documentation.
+The project will be available on the address `localhost:9292`
 
-To run tests simply execute `rspec`  
-# 4. Finishing up
-- We are expecting your work to be hosted on github repo 
-- Send the challenge repo link in a email to us 
-- We are expecting to receive your code within a week from getting the challenge email.
+
+## 2. Dokcer
+Make sure your system has the followinf dependencies
+- [Docker and Docker-composer](https://www.docker.com/)
+
+Go to the project root and simply execute `docker-compose up -d`
+The project will be available on the address `localhost`
+
+Make sure that environment variables in `docker-compose.yml` and `.env` are equal.
+
+# 2. Notes
+- This project has a monolitic architecture
+- The exchange rates are stored once a day, to reduce the number of requests sent to the API. Since it's a paid once.
+
+# 3. Testing
+> **Create a test database before testing the application**
+
+Make sure that you create the test database.
+If you are executing the tests inside the app container:
+execute `SINATRA_ENV=test db:migrate`  before running `rspec`.
+
+If you are executing the test from teh host machine:
+execute `SIATRA_ENV=test POSTGRES_URL=localhost db:migrate` before running `POSTGRES_URL=localhost rspec`
