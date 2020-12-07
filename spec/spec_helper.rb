@@ -5,7 +5,7 @@ require 'rack/test'
 require 'rspec'
 # setting env
 set :environment, :test
-
+ENV["SINATRA_ENV"] = "test"
 # Creating a Mixin
 module RSpecMixin
   include Rack::Test::Methods
