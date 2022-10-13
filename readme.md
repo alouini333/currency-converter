@@ -3,6 +3,7 @@
 
 > **Make sure to set the `CURRENCY_LAYER_KEY` env variable before running the program**
 
+
 There are 2 ways to run the application:
 ## 1. Ruby and Bundler
 To be able to do this challange make sure you have installed a recent version of ruby and bunlder.
